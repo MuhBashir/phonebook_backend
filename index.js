@@ -11,6 +11,7 @@ app.use(
   morgan(':method :url :status :res[content-length] - :response-time ms :body')
 );
 app.use(cors());
+app.use(express.static('dist'));
 
 app.get('/api/persons', (req, res) => {
   res.status(200).json(persons);
@@ -74,10 +75,6 @@ app.post('/api/persons', (req, res) => {
 //   const person = persons.find((person) => person.id === Number(id));
 //   res.status(200).json({ ...person, number: body.number });
 // });
-
-app.all('*', (req, res) => {
-  res.status(404).send('resource not found');
-});
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
