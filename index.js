@@ -14,6 +14,7 @@ app.use(cors());
 app.use(express.static('dist'));
 
 app.get('/api/persons', (req, res) => {
+  console.log(persons);
   res.status(200).json(persons);
 });
 
@@ -39,28 +40,28 @@ app.get('/api/persons/:id', (req, res) => {
 app.delete('/api/persons/:id', (req, res) => {
   const id = Number(req.params.id);
   const people = persons.filter((person) => person.id !== id);
-  res.status(200).json(people);
+  persons = people;
+  res.status(204).end();
 });
 
 // posting new person
 app.post('/api/persons', (req, res) => {
-  const body = req.body;
-  console.log(body);
+  const personBody = req.body;
   const generatedID =
     persons.length > 0 ? Math.max(...persons.map((person) => person.id)) : 0;
-  const findPerson = persons.find((person) => person.name === body.name);
+  const findPerson = persons.find((person) => person.name === personBody.name);
   if (findPerson) {
     return res
       .status(200)
       .json({ error: 'name must be unique as it is already exist' });
   }
-  if (!body.name || !body.number) {
+  if (!personBody.name || !personBody.number) {
     return res.status(400).json({ error: 'name or number can not be missing' });
   }
 
   const person = {
-    name: body.name,
-    number: body.number,
+    name: personBody.name,
+    number: personBody.number,
     id: generatedID + 1,
   };
 
