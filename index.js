@@ -65,7 +65,6 @@ app.post('/api/persons', (req, res) => {
   };
 
   persons = persons.concat(person);
-  console.log(persons);
   res.status(201).json(person);
 });
 

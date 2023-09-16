@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "start": "node index.js",
+    "start": "node index.js -e html,js, css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Muhammad Bashir Ibrahim",
